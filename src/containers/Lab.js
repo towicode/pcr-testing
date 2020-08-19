@@ -51,8 +51,6 @@ export default class Home extends Component {
 
   _handleKeyDown = (event) => {
 
-    console.log(event);
-
     if (event.key == "Backspace") {
 
       this.st0buffer = "";
@@ -188,6 +186,7 @@ export default class Home extends Component {
       const result = await API.post("barcodeLookup", "/barcodeLookup", myInit);
       this.setState({ 'formState': 1, 'spinner': false });
       this.setState(result);
+      this.st0buffer = "";
     }).catch(error => {
       console.log("Error in Auth.currentSession: " + error);
       this.setState({ 'spinner': false });
@@ -382,6 +381,7 @@ export default class Home extends Component {
         body: { vialBarcode: this.state.vialBarcodeFinal, accepted: bool }
       }
       this.buffer = "";
+      this.st0buffer = "";
       await API.post("vialScannerStatus", "/vialScannerStatus", myInit);
       this.resetAll();
       if (bool) {
